@@ -18,6 +18,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    //默认的 HSTS 有效期为 30 天。在生产环境中，您可能需要更改这一设置，具体信息请参考 https://aka.ms/aspnetcore-hsts。
     app.UseHsts();
 }
 
