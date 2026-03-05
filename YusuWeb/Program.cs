@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using YusuWeb.Data;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);//make a webapplication
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
