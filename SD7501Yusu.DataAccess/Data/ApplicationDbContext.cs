@@ -21,6 +21,7 @@ namespace YusuWeb.Data
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
@@ -86,6 +87,7 @@ namespace YusuWeb.Data
                 {
                     Id = 6,
                     Title = "Leaves and Wonders",
+                    Author = "Laura Phantom",
                     Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget tristique tortor pretium ut. Curabitur elit justo, consequat id condimentum ac, volutpat ornare.",
                     ISBN = "SWD9999006",
                     ListPrice = 30.00,

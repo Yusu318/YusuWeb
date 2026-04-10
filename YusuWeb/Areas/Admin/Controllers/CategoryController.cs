@@ -4,20 +4,22 @@ using YusuWeb.Data;
 using YusuWeb.Models;
 
 
-namespace YusuWeb.Areas.Admin.Controllers
-{
+//namespace YusuWeb.Areas.Admin.Controllers
+//{
     //[Area("Admin")]
+    namespace YusuWeb.Controllers
+{
     public class CategoryController : Controller
     {
-            private readonly ICategoryRepository _categoryRepo;
-        public CategoryController(ICategoryRepository db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         { 
-            _categoryRepo=db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
             //var objCategoryList= _db.Categories;
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
         //private readonly ApplicationDbContext _db;
@@ -45,8 +47,8 @@ namespace YusuWeb.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(obj);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created successfully";
                 return RedirectToAction("Index");
             }
@@ -60,7 +62,7 @@ namespace YusuWeb.Areas.Admin.Controllers
             { 
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u=>u.Id==id);
 
             if (categoryFromDb==null)
             {
@@ -74,9 +76,9 @@ namespace YusuWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(obj);
-                _categoryRepo.Save();
-                TempData["success"] = "Category Created successfully";
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -89,7 +91,7 @@ namespace YusuWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -100,14 +102,14 @@ namespace YusuWeb.Areas.Admin.Controllers
         [HttpPost,ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? obj= _categoryRepo.Get(u => u.Id == id);
+            Category? obj= _unitOfWork.Category.Get(u => u.Id == id);
             if (obj==null)
             {
                 return NotFound();
             }
-            _categoryRepo.Add(obj);
-            _categoryRepo.Save();
-            TempData["success"] = "Category Created successfully";
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
+            TempData["success"] = "Category Deleted successfully";
             return RedirectToAction("Index");
         }
     }//end of class

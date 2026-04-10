@@ -7,10 +7,11 @@ using YusuWeb.Models;
 
 namespace SD7501Yusu.DataAccess.Repository.IRepository
 {
-        public interface ICategoryRepository : IRepository<Category>
-        {
+    //public interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryRepository: IRepository<Category>
+    {
             void Update(Category obj);
-            void Save();
-            // Add any additional methods specific to Category repository if needed
-        }
+
+        // Add any additional methods specific to Category repository if needed
+    }
     }
