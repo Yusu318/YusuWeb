@@ -1,6 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using YusuWeb.Data;
+using SD7501Yusu.DataAccess.Repository;
+using SD7501Yusu.DataAccess.Repository.IRepository;
 
+namespace SD7501YusuWeb
+{     public class Program
+    {
+        public static void Main(string[] args)
+        { }
 var builder = WebApplication.CreateBuilder(args);//make a webapplication
 
 // Add services to the container.
@@ -31,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
