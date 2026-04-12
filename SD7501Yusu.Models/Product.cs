@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YusuWeb.Models;
 
 namespace SD7501Yusu.Models
 {
@@ -16,6 +18,7 @@ namespace SD7501Yusu.Models
         public string Description { get; set; }
         [Required]
         public string ISBN { get; set; }
+        [Required]
         public string Author { get; set; }
         [Required]
         [Display(Name ="List Price")]
@@ -33,6 +36,14 @@ namespace SD7501Yusu.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
+
+        //Foreign key for Category
+        public int CategoryId { get; set; }
+
+        //Navigation property
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
+        public string ImageUrl { get; set; }
     }
-  
+
 }

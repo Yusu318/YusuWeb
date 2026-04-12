@@ -34,6 +34,8 @@ namespace YusuWeb.Data
                     Price = 90.00,
                     Price50 = 85.00,
                     Price100 = 80.00,
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -46,6 +48,8 @@ namespace YusuWeb.Data
                     Price = 30.00,
                     Price50 = 25.00,
                     Price100 = 20.00,
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -58,6 +62,8 @@ namespace YusuWeb.Data
                     Price = 50.00,
                     Price50 = 40.00,
                     Price100 = 35.00,
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -70,6 +76,8 @@ namespace YusuWeb.Data
                     Price = 65.00,
                     Price50 = 60.00,
                     Price100 = 55.00,
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -82,6 +90,8 @@ namespace YusuWeb.Data
                     Price = 27.00,
                     Price50 = 25.00,
                     Price100 = 20.00,
+                    CategoryId = 3,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -94,6 +104,8 @@ namespace YusuWeb.Data
                     Price = 27.00,
                     Price50 = 25.00,
                     Price100 = 20.00,
+                    CategoryId = 3,
+                    ImageUrl = ""
                 }
                 );
         }
