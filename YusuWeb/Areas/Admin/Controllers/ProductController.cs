@@ -212,7 +212,7 @@ namespace YusuWeb.Areas.Admin.Controllers
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
             return Json(new { data = objProductList });
         }
-        [HttpPost]//告诉 ASP.NET Core，这个方法只处理 POST 请求。
+        [HttpDelete]//告诉 ASP.NET Core，这个方法只处理 Delete 请求
         public IActionResult Delete(int? id)
         {
             var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
@@ -221,7 +221,7 @@ namespace YusuWeb.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Error while deleting" });
             }
             var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
-            if(System.IO.File.Exists(oldImagePath))
+            if (System.IO.File.Exists(oldImagePath))
             {
                 System.IO.File.Delete(oldImagePath);
             }
