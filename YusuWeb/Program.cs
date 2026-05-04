@@ -3,6 +3,8 @@ using YusuWeb.Data;
 using SD7501Yusu.DataAccess.Repository;
 using SD7501Yusu.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity;
+using SD7501Yusu.Utility;
 
 
 namespace SD7501YusuWeb
@@ -17,6 +19,11 @@ namespace SD7501YusuWeb
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddRazorPages();
+
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
@@ -29,7 +36,7 @@ namespace SD7501YusuWeb
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                //Ä¬ÈÏµÄ HSTS ÓÐÐ§ÆÚÎª 30 Ìì¡£ÔÚÉú²ú»·¾³ÖÐ£¬Äú¿ÉÄÜÐèÒª¸ü¸ÄÕâÒ»ÉèÖÃ£¬¾ßÌåÐÅÏ¢Çë²Î¿¼ https://aka.ms/aspnetcore-hsts¡£
+                //Ä¬ï¿½Ïµï¿½ HSTS ï¿½ï¿½Ð§ï¿½ï¿½Îª 30 ï¿½ì¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Î¿ï¿½ https://aka.ms/aspnetcore-hstsï¿½ï¿½
                 app.UseHsts();
             }
 
@@ -38,7 +45,9 @@ namespace SD7501YusuWeb
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
