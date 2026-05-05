@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SD7501Yusu.DataAccess.Repository.IRepository;
 using SD7501Yusu.Models;
 using SD7501Yusu.Models.ViewModels;
+using SD7501Yusu.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;   
@@ -13,8 +15,8 @@ using YusuWeb.Models;
 namespace YusuWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
-        public class ProductController : Controller
+    [Authorize(Roles = SD.Role_Admin)]
+    public class ProductController : Controller
         {
             private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
