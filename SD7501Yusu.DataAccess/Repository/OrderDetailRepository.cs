@@ -9,10 +9,10 @@ using YusuWeb.Data;
 
 namespace SD7501Yusu.DataAccess.Repository
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class OrderDetailRepository : Repository<OrderDetail>, IOrderDetailRepository
     {
         private ApplicationDbContext _db;
-        public CompanyRepository(ApplicationDbContext db) : base(db)
+        public OrderDetailRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -20,14 +20,9 @@ namespace SD7501Yusu.DataAccess.Repository
         {
             _db.SaveChanges();
         }
-        public void Update(Company obj)
+        public void Update(OrderDetail obj)
         {
-            _db.Companies.Update(obj);
-        }
-
-        public void Update(CompanyRepository obj)
-        {
-            throw new NotImplementedException();
+            _db.OrderDetails.Update(obj);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using YusuWeb.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SD7501Yusu.DataAccess.Repository
 {
@@ -18,18 +19,27 @@ namespace SD7501Yusu.DataAccess.Repository
         {
             _db = db;
             this.dbSet = _db.Set<T>();
-            _db.Products.Include(u => u.Category).Include(u => u.CategoryId);
+            //_db.Products.Include(u => u.Category).Include(u => u.CategoryId);
         }
-        void IRepository<T>.Add(T entity)
+        public void Add(T entity)
         {
             dbSet.Add(entity);
         }
 
-        T IRepository<T>.Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query;
+            if (tracked)
+            {
+                query = dbSet;
+            }
+            else
+            {
+                query = dbSet.AsNoTracking();
+            }
+
             query = query.Where(filter);
-            if(!string.IsNullOrEmpty(includeProperties))
+            if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -39,10 +49,18 @@ namespace SD7501Yusu.DataAccess.Repository
             return query.FirstOrDefault();
         }
 
-        IEnumerable<T> IRepository<T>.GetAll(string? includeProperties = null)
+
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
-            if(!string.IsNullOrEmpty(includeProperties))
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -52,13 +70,12 @@ namespace SD7501Yusu.DataAccess.Repository
             return query.ToList();
         }
 
-
-        void IRepository<T>.Remove(T entity)
+        public void Remove(T entity)
         {
             dbSet.Remove(entity);
         }
 
-        void IRepository<T>.RemoveRange(IEnumerable<T> entity)
+        public void RemoveRange(IEnumerable<T> entity)
         {
             dbSet.RemoveRange(entity);
         }

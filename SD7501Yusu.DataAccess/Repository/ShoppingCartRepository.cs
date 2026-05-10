@@ -6,28 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YusuWeb.Data;
+using YusuWeb.Models;
 
 namespace SD7501Yusu.DataAccess.Repository
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository
     {
         private ApplicationDbContext _db;
-        public CompanyRepository(ApplicationDbContext db) : base(db)
-        {
+        public ShoppingCartRepository(ApplicationDbContext db) : base(db)
+        {             
             _db = db;
         }
+
         public void Save()
         {
             _db.SaveChanges();
         }
-        public void Update(Company obj)
+        public void Update(ShoppingCart obj)
         {
-            _db.Companies.Update(obj);
-        }
-
-        public void Update(CompanyRepository obj)
-        {
-            throw new NotImplementedException();
+            _db.ShoppingCarts.Update(obj);
         }
     }
 }
